@@ -36,67 +36,11 @@ class HttpModule extends HttpPluginModule {
   @Override
   protected void configureServlets() {
     PluginConfig cfg =
-        cfgFactory.getFromGerritConfig(pluginName + GoogleOAuthService.CONFIG_SUFFIX);
-    if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
-      bind(OAuthServiceProvider.class)
-          .annotatedWith(Exports.named(GoogleOAuthService.CONFIG_SUFFIX))
-          .to(GoogleOAuthService.class);
-    }
-
-    cfg = cfgFactory.getFromGerritConfig(pluginName + GitHubOAuthService.CONFIG_SUFFIX);
-    if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
-      bind(OAuthServiceProvider.class)
-          .annotatedWith(Exports.named(GitHubOAuthService.CONFIG_SUFFIX))
-          .to(GitHubOAuthService.class);
-    }
-
-    cfg = cfgFactory.getFromGerritConfig(pluginName + BitbucketOAuthService.CONFIG_SUFFIX);
-    if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
-      bind(OAuthServiceProvider.class)
-          .annotatedWith(Exports.named(BitbucketOAuthService.CONFIG_SUFFIX))
-          .to(BitbucketOAuthService.class);
-    }
-
-    cfg = cfgFactory.getFromGerritConfig(pluginName + CasOAuthService.CONFIG_SUFFIX);
-    if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
-      bind(OAuthServiceProvider.class)
-          .annotatedWith(Exports.named(CasOAuthService.CONFIG_SUFFIX))
-          .to(CasOAuthService.class);
-    }
-
-    cfg = cfgFactory.getFromGerritConfig(pluginName + FacebookOAuthService.CONFIG_SUFFIX);
-    if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
-      bind(OAuthServiceProvider.class)
-          .annotatedWith(Exports.named(FacebookOAuthService.CONFIG_SUFFIX))
-          .to(FacebookOAuthService.class);
-    }
-
-    cfg = cfgFactory.getFromGerritConfig(pluginName + GitLabOAuthService.CONFIG_SUFFIX);
-    if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
-      bind(OAuthServiceProvider.class)
-          .annotatedWith(Exports.named(GitLabOAuthService.CONFIG_SUFFIX))
-          .to(GitLabOAuthService.class);
-    }
-
-    cfg = cfgFactory.getFromGerritConfig(pluginName + DexOAuthService.CONFIG_SUFFIX);
+        cfgFactory.getFromGerritConfig(pluginName + DexOAuthService.CONFIG_SUFFIX);
     if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
       bind(OAuthServiceProvider.class)
           .annotatedWith(Exports.named(DexOAuthService.CONFIG_SUFFIX))
           .to(DexOAuthService.class);
-    }
-
-    cfg = cfgFactory.getFromGerritConfig(pluginName + KeycloakOAuthService.CONFIG_SUFFIX);
-    if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
-      bind(OAuthServiceProvider.class)
-          .annotatedWith(Exports.named(KeycloakOAuthService.CONFIG_SUFFIX))
-          .to(KeycloakOAuthService.class);
-    }
-
-    cfg = cfgFactory.getFromGerritConfig(pluginName + Office365OAuthService.CONFIG_SUFFIX);
-    if (cfg.getString(InitOAuth.CLIENT_ID) != null) {
-      bind(OAuthServiceProvider.class)
-          .annotatedWith(Exports.named(Office365OAuthService.CONFIG_SUFFIX))
-          .to(Office365OAuthService.class);
     }
   }
 }

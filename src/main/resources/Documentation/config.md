@@ -10,28 +10,9 @@ file. `auth.type` must be set to `OAUTH`:
 ```
 
 Providers are configured under @PLUGIN@ section,
-appended with provider suffix: e.g. `-google-oauth` or `-github-oauth`:
+appended with provider suffix: e.g. `-dex-oauth`:
 
 ```
-  [plugin "@PLUGIN@-google-oauth"]
-    client-id = "<client-id>"
-    client-secret = "<client-secret>"
-    link-to-existing-openid-accounts = true
-
-  [plugin "@PLUGIN@-github-oauth"]
-    client-id = "<client-id>"
-    client-secret = "<client-secret>"
-
-  [plugin "@PLUGIN@-cas-oauth"]
-    root-url = "<cas url>"
-    client-id = "<client-id>"
-    client-secret = "<client-secret>"
-
-  [plugin "@PLUGIN@-gitlab-oauth"]
-    root-url = "<gitlab url>"
-    client-id = "<client-id>"
-    client-secret = "<client-secret>"
-
   [plugin "@PLUGIN@-dex-oauth"]
     domain = "<domain for username manipulation (optional)>"
     service-name = "<custom service name (optional)>"

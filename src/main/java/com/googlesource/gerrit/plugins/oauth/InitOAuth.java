@@ -33,109 +33,22 @@ class InitOAuth implements InitStep {
   static String FIX_LEGACY_USER_ID_QUESTION = "Fix legacy user id, without oauth provider prefix?";
 
   private final ConsoleUI ui;
-  private final Section googleOAuthProviderSection;
-  private final Section githubOAuthProviderSection;
-  private final Section bitbucketOAuthProviderSection;
-  private final Section casOAuthProviderSection;
-  private final Section facebookOAuthProviderSection;
-  private final Section gitlabOAuthProviderSection;
   private final Section dexOAuthProviderSection;
-  private final Section keycloakOAuthProviderSection;
-  private final Section office365OAuthProviderSection;
 
   @Inject
   InitOAuth(ConsoleUI ui, Section.Factory sections, @PluginName String pluginName) {
     this.ui = ui;
-    this.googleOAuthProviderSection =
-        sections.get(PLUGIN_SECTION, pluginName + GoogleOAuthService.CONFIG_SUFFIX);
-    this.githubOAuthProviderSection =
-        sections.get(PLUGIN_SECTION, pluginName + GitHubOAuthService.CONFIG_SUFFIX);
-    this.bitbucketOAuthProviderSection =
-        sections.get(PLUGIN_SECTION, pluginName + BitbucketOAuthService.CONFIG_SUFFIX);
-    this.casOAuthProviderSection =
-        sections.get(PLUGIN_SECTION, pluginName + CasOAuthService.CONFIG_SUFFIX);
-    this.facebookOAuthProviderSection =
-        sections.get(PLUGIN_SECTION, pluginName + FacebookOAuthService.CONFIG_SUFFIX);
-    this.gitlabOAuthProviderSection =
-        sections.get(PLUGIN_SECTION, pluginName + GitLabOAuthService.CONFIG_SUFFIX);
     this.dexOAuthProviderSection =
         sections.get(PLUGIN_SECTION, pluginName + DexOAuthService.CONFIG_SUFFIX);
-    this.keycloakOAuthProviderSection =
-        sections.get(PLUGIN_SECTION, pluginName + KeycloakOAuthService.CONFIG_SUFFIX);
-    this.office365OAuthProviderSection =
-        sections.get(PLUGIN_SECTION, pluginName + Office365OAuthService.CONFIG_SUFFIX);
   }
 
   @Override
   public void run() throws Exception {
     ui.header("OAuth Authentication Provider");
 
-    boolean configureGoogleOAuthProvider =
-        ui.yesno(true, "Use Google OAuth provider for Gerrit login ?");
-    if (configureGoogleOAuthProvider) {
-      configureOAuth(googleOAuthProviderSection);
-      googleOAuthProviderSection.string(FIX_LEGACY_USER_ID_QUESTION, FIX_LEGACY_USER_ID, "false");
-    }
-
-    boolean configueGitHubOAuthProvider =
-        ui.yesno(true, "Use GitHub OAuth provider for Gerrit login ?");
-    if (configueGitHubOAuthProvider) {
-      configureOAuth(githubOAuthProviderSection);
-      githubOAuthProviderSection.string(FIX_LEGACY_USER_ID_QUESTION, FIX_LEGACY_USER_ID, "false");
-    }
-
-    boolean configureBitbucketOAuthProvider =
-        ui.yesno(true, "Use Bitbucket OAuth provider for Gerrit login ?");
-    if (configureBitbucketOAuthProvider) {
-      configureOAuth(bitbucketOAuthProviderSection);
-      bitbucketOAuthProviderSection.string(
-          FIX_LEGACY_USER_ID_QUESTION, FIX_LEGACY_USER_ID, "false");
-    }
-
-    boolean configureCasOAuthProvider = ui.yesno(true, "Use CAS OAuth provider for Gerrit login ?");
-    if (configureCasOAuthProvider) {
-      casOAuthProviderSection.string("CAS Root URL", ROOT_URL, null);
-      configureOAuth(casOAuthProviderSection);
-      casOAuthProviderSection.string(FIX_LEGACY_USER_ID_QUESTION, FIX_LEGACY_USER_ID, "false");
-    }
-
-    boolean configueFacebookOAuthProvider =
-        ui.yesno(true, "Use Facebook OAuth provider for Gerrit login ?");
-    if (configueFacebookOAuthProvider) {
-      configureOAuth(facebookOAuthProviderSection);
-    }
-
-    boolean configureGitLabOAuthProvider =
-        ui.yesno(true, "Use GitLab OAuth provider for Gerrit login ?");
-    if (configureGitLabOAuthProvider) {
-      gitlabOAuthProviderSection.string("GitLab Root URL", ROOT_URL, null);
-      configureOAuth(gitlabOAuthProviderSection);
-    }
-
-    boolean configureDexOAuthProvider = ui.yesno(true, "Use Dex OAuth provider for Gerrit login ?");
-    if (configureDexOAuthProvider) {
-      dexOAuthProviderSection.string("Dex Root URL", ROOT_URL, null);
-      configureOAuth(dexOAuthProviderSection);
-    }
-
-    boolean configureKeycloakOAuthProvider =
-        ui.yesno(true, "Use Keycloak OAuth provider for Gerrit login ?");
-    if (configureKeycloakOAuthProvider) {
-      keycloakOAuthProviderSection.string("Keycloak Root URL", ROOT_URL, null);
-      keycloakOAuthProviderSection.string("Keycloak Realm", REALM, null);
-      configureOAuth(keycloakOAuthProviderSection);
-    }
-
-    boolean configureOffice365OAuthProvider =
-        ui.yesno(true, "Use Office365 OAuth provider for Gerrit login ?");
-    if (configureOffice365OAuthProvider) {
-      configureOAuth(office365OAuthProviderSection);
-    }
-  }
-
-  private void configureOAuth(Section s) {
-    s.string("Application client id", CLIENT_ID, null);
-    s.passwordForKey("Application client secret", CLIENT_SECRET);
+	dexOAuthProviderSection.string("Dex Root URL", ROOT_URL, null);
+    dexOAuthProviderSection.string("Application client id", CLIENT_ID, null);
+    dexOAuthProviderSection.passwordForKey("Application client secret", CLIENT_SECRET);
   }
 
   @Override

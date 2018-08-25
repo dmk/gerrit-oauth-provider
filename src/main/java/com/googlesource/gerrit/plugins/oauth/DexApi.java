@@ -25,7 +25,7 @@ import org.scribe.utils.OAuthEncoder;
 public class DexApi extends DefaultApi20 {
 
   private static final String AUTHORIZE_URL =
-      "%s/dex/auth?client_id=%s&response_type=code&redirect_uri=%s&scope=%s";
+      "%s/auth?client_id=%s&response_type=code&redirect_uri=%s&scope=%s";
 
   private final String rootUrl;
 
@@ -45,7 +45,7 @@ public class DexApi extends DefaultApi20 {
 
   @Override
   public String getAccessTokenEndpoint() {
-    return String.format("%s/dex/token", rootUrl);
+    return String.format("%s/token", rootUrl);
   }
 
   @Override
